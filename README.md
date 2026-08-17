@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌾 AgriMarket
 
 A full-stack B2B/B2C agricultural marketplace platform connecting farmers and buyers.
@@ -223,3 +224,6 @@ agrimarket/
 ## License
 
 MIT License
+=======
+# Agrimarket
+>>>>>>> 57cb2598b72096f8f3fc7a1f31a311cf2e4d865f
