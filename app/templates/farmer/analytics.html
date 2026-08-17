@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - AgriMarket{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Sales Analytics</h2>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Daily Sales (Last {{ days }} days)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="dailySalesChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Top Products by Revenue</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="topProductsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Daily Sales Chart
+const dailySalesCtx = document.getElementById('dailySalesChart').getContext('2d');
+new Chart(dailySalesCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ daily_sales_labels|tojson }},
+        datasets: [{
+            label: 'Revenue (₹)',
+            data: {{ daily_sales_data|tojson }},
+            backgroundColor: 'rgba(45, 106, 79, 0.8)'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Top Products Chart
+const topProductsCtx = document.getElementById('topProductsChart').getContext('2d');
+new Chart(topProductsCtx, {
+    type: 'doughnut',
+    data: {
+        labels: {{ top_products_labels|tojson }},
+        datasets: [{
+            data: {{ top_products_data|tojson }},
+            backgroundColor: [
+                'rgba(45, 106, 79, 0.8)',
+                'rgba(82, 183, 136, 0.8)',
+                'rgba(216, 243, 220, 0.8)',
+                'rgba(149, 213, 178, 0.8)',
+                'rgba(64, 145, 108, 0.8)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
+{% endblock %}

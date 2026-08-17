@@ -1,0 +1,40 @@
+# Minimal requirements for development (no compilation needed)
+# Use this if you have issues with the main requirements.txt
+
+# Core Flask
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+Flask-Login==0.6.3
+Flask-JWT-Extended==4.5.3
+Flask-SocketIO==5.3.5
+Flask-Mail==0.9.1
+Flask-WTF==1.2.1
+
+# Database
+SQLAlchemy>=2.0.25  # Python 3.13 compatible
+
+# Server & Async
+python-socketio==5.10.0
+python-dotenv==1.0.0
+
+# Security
+Werkzeug==3.0.1
+email-validator==2.1.0
+
+# Payments
+razorpay==1.4.1
+
+# Reports (basic - no pandas)
+reportlab==4.0.7
+openpyxl==3.1.2
+
+# File Upload
+Pillow==10.1.0
+
+# Task Scheduling
+APScheduler==3.10.4
+
+# Utilities
+python-dateutil==2.8.2
+WTForms==3.1.1

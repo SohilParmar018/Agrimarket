@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}B2B Contracts - AgriMarket{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>B2B Contracts</h2>
+    {% if current_user.is_buyer() %}
+    <a href="{{ url_for('b2b.request_contract') }}" class="btn btn-success">Request New Contract</a>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if contracts %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contract ID</th>
+                    <th>Product</th>
+                    <th>{% if current_user.is_buyer() %}Farmer{% else %}Buyer{% endif %}</th>
+                    <th>Volume</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contract in contracts %}
+                <tr>
+                    <td>#{{ contract.id }}</td>
+                    <td>{{ contract.product.name }}</td>
+                    <td>{{ contract.farmer.name if current_user.is_buyer() else contract.buyer.name }}</td>
+                    <td>{{ contract.total_volume }} {{ contract.unit }}</td>
+                    <td>{{ contract.agreed_price_per_unit|currency }}/{{ contract.unit }}</td>
+                    <td><span class="badge bg-{{ 'success' if contract.status == 'active' else 'warning' }}">{{ contract.get_status_display() }}</span></td>
+                    <td>
+                        {% if current_user.is_farmer() and contract.status == 'draft' %}
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#activateModal{{ contract.id }}">Activate</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                
+                <!-- Activate Modal -->
+                <div class="modal fade" id="activateModal{{ contract.id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Activate Contract</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form method="POST" action="{{ url_for('b2b.activate_contract', id=contract.id) }}">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Advance Payment Received (₹)</label>
+                                        <input type="number" name="advance_paid" class="form-control" min="0" step="0.01" required>
+                                    </div>
+                                    <p><strong>Total Amount:</strong> {{ contract.calculate_total_amount()|currency }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Activate Contract</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted">No contracts yet</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

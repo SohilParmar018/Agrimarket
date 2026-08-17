@@ -1,0 +1,54 @@
+========================================
+        AGRIMARKET - START HERE
+========================================
+
+EASIEST WAY (Just 1 command):
+------------------------------
+    INSTALL_NOW.bat
+
+Then:
+    python run.py
+
+Visit: http://localhost:5000
+
+========================================
+
+IF THAT DOESN'T WORK:
+---------------------
+
+Step 1: Create virtual environment
+    python -m venv venv
+    venv\Scripts\activate
+
+Step 2: Install packages manually
+    python install.py
+
+Step 3: Initialize database
+    python init_db.py
+
+Step 4: Run application
+    python run.py
+
+Visit: http://localhost:5000
+
+========================================
+
+DEFAULT ACCOUNTS:
+-----------------
+Admin:  admin@agrimarket.com / admin123
+Farmer: farmer@test.com / test123
+Buyer:  buyer@test.com / test123
+
+========================================
+
+STILL HAVING ISSUES?
+--------------------
+1. Make sure Python 3.11+ is installed
+2. Check: TROUBLESHOOTING.md
+3. Try: python install.py
+
+The installer shows which packages work
+and which don't. The app will still run
+with just the core packages!
+
+========================================

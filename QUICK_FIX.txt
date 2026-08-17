@@ -1,0 +1,40 @@
+========================================
+AGRIMARKET - QUICK FIX FOR INSTALLATION
+========================================
+
+If you're seeing installation errors, follow these 3 simple steps:
+
+STEP 1: Use Minimal Requirements
+---------------------------------
+pip install -r requirements-minimal.txt
+
+STEP 2: Test Installation
+--------------------------
+python test_installation.py
+
+STEP 3: Initialize & Run
+-------------------------
+python init_db.py
+python run.py
+
+Visit: http://localhost:5000
+
+Default Accounts:
+- Admin: admin@agrimarket.com / admin123
+- Farmer: farmer@test.com / test123
+- Buyer: buyer@test.com / test123
+
+========================================
+
+WHAT CHANGED?
+- Using threading instead of eventlet (better Windows compatibility)
+- Removed pandas and psycopg2 (not essential for development)
+- All core features still work!
+
+STILL HAVING ISSUES?
+Check these files:
+- INSTALL_HELP.md - Quick installation guide
+- TROUBLESHOOTING.md - Detailed troubleshooting
+- TESTING.md - How to test the application
+
+========================================

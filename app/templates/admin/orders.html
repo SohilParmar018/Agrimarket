@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}All Orders - AgriMarket{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">All Orders</h2>
+
+<div class="mb-3">
+    <a href="?status=all" class="btn btn-sm {% if current_status == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">All</a>
+    <a href="?status=pending" class="btn btn-sm {% if current_status == 'pending' %}btn-warning{% else %}btn-outline-warning{% endif %}">Pending</a>
+    <a href="?status=delivered" class="btn btn-sm {% if current_status == 'delivered' %}btn-success{% else %}btn-outline-success{% endif %}">Delivered</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Buyer</th>
+                    <th>Farmer</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders.items %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.buyer.name }}</td>
+                    <td>{{ order.farmer.name }}</td>
+                    <td>{{ order.final_amount|currency }}</td>
+                    <td><span class="badge bg-{{ order.status|status_badge }}">{{ order.get_status_display() }}</span></td>
+                    <td>{{ order.created_at|datetime }}</td>
+                    <td>
+                        <a href="{{ url_for('orders.detail', id=order.id) }}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

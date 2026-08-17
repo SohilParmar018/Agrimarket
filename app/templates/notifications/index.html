@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications - AgriMarket{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-bell"></i> Notifications</h2>
+            {% if notifications %}
+            <form method="POST" action="{{ url_for('notifications.mark_all_read') }}" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-check-all"></i> Mark All Read
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+        {% if notifications %}
+        <div class="list-group">
+            {% for notification in notifications %}
+            <div class="list-group-item {% if not notification.is_read %}list-group-item-light border-start border-success border-4{% endif %}">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">
+                        <i class="bi bi-{{ 'envelope' if notification.type == 'message' else 'cart' if notification.type == 'order' else 'cash' if notification.type == 'payment' else 'box' if notification.type == 'stock' else 'info-circle' }}"></i>
+                        {{ notification.title }}
+                    </h6>
+                    <small class="text-muted">{{ notification.created_at|datetime('%d %b, %I:%M %p') }}</small>
+                </div>
+                <p class="mb-1">{{ notification.message }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    {% if notification.action_url %}
+                    <a href="{{ notification.action_url }}" class="btn btn-sm btn-success">View</a>
+                    {% else %}
+                    <span></span>
+                    {% endif %}
+                    {% if not notification.is_read %}
+                    <form method="POST" action="{{ url_for('notifications.mark_read', id=notification.id) }}" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-check"></i> Mark Read
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center">
+            <i class="bi bi-bell-slash display-4"></i>
+            <p class="mt-3">No notifications yet</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

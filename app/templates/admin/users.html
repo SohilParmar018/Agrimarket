@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}User Management - AgriMarket{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">User Management</h2>
+
+<div class="mb-3">
+    <a href="?role=all" class="btn btn-sm {% if current_role == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">All</a>
+    <a href="?role=farmer" class="btn btn-sm {% if current_role == 'farmer' %}btn-success{% else %}btn-outline-success{% endif %}">Farmers</a>
+    <a href="?role=buyer" class="btn btn-sm {% if current_role == 'buyer' %}btn-info{% else %}btn-outline-info{% endif %}">Buyers</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users.items %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span class="badge bg-{{ 'success' if user.is_farmer() else 'info' }}">{{ user.role|title }}</span></td>
+                    <td>
+                        {% if user.is_verified %}
+                        <span class="badge bg-success">Verified</span>
+                        {% else %}
+                        <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                        {% if not user.is_active %}
+                        <span class="badge bg-danger">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.created_at|datetime('%d %b %Y') }}</td>
+                    <td>
+                        {% if not user.is_verified and user.is_farmer() %}
+                        <form method="POST" action="{{ url_for('admin.verify_user', id=user.id) }}" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-success">Verify</button>
+                        </form>
+                        {% endif %}
+                        <form method="POST" action="{{ url_for('admin.toggle_user_active', id=user.id) }}" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-{{ 'danger' if user.is_active else 'success' }}">
+                                {{ 'Deactivate' if user.is_active else 'Activate' }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

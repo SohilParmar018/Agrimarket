@@ -1,0 +1,126 @@
+/* AgriMarket Custom Styles */
+
+:root {
+    --primary-green: #2d6a4f;
+    --accent-green: #52b788;
+    --light-green: #d8f3dc;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.bg-success {
+    background-color: var(--primary-green) !important;
+}
+
+.btn-success {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-success:hover {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.text-success {
+    color: var(--primary-green) !important;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Product cards */
+.product-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    height: 200px;
+    object-fit: cover;
+    background-color: #f8f9fa;
+}
+
+.product-image-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+/* Cart badge */
+.cart-badge {
+    position: relative;
+    top: -2px;
+}
+
+/* Notification badge */
+#notificationCount {
+    position: relative;
+    top: -8px;
+    right: 5px;
+    font-size: 0.7rem;
+    padding: 2px 5px;
+}
+
+/* Order status badges */
+.order-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.order-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #dee2e6;
+}
+
+.order-timeline-item {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.order-timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #dee2e6;
+    border: 2px solid #fff;
+}
+
+.order-timeline-item.active::before {
+    background: var(--primary-green);
+}

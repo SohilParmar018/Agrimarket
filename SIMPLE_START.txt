@@ -1,0 +1,39 @@
+========================================
+AGRIMARKET - SIMPLEST INSTALLATION
+========================================
+
+Just run this ONE command:
+
+    INSTALL_NOW.bat
+
+That's it! The script will:
+1. Create virtual environment
+2. Install all packages (one by one)
+3. Test the installation
+4. Initialize the database
+5. Tell you what to do next
+
+========================================
+
+AFTER INSTALLATION:
+
+Run:    python run.py
+Visit:  http://localhost:5000
+
+Login:
+- Admin: admin@agrimarket.com / admin123
+- Farmer: farmer@test.com / test123
+- Buyer: buyer@test.com / test123
+
+========================================
+
+IF IT STILL FAILS:
+
+The installer will show which packages failed.
+The app will still work with core packages!
+
+Just run:
+    python init_db.py
+    python run.py
+
+========================================

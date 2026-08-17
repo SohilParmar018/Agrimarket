@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Add Product - AgriMarket{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Add New Product</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.category.label(class="form-label") }}
+                            {{ form.category(class="form-select") }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows=3) }}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.price_per_unit.label(class="form-label") }}
+                            {{ form.price_per_unit(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.unit.label(class="form-label") }}
+                            {{ form.unit(class="form-select") }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.stock_qty.label(class="form-label") }}
+                            {{ form.stock_qty(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.min_order_qty.label(class="form-label") }}
+                            {{ form.min_order_qty(class="form-control") }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_bulk_available(class="form-check-input") }}
+                            {{ form.is_bulk_available.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.bulk_price.label(class="form-label") }}
+                            {{ form.bulk_price(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.min_bulk_qty.label(class="form-label") }}
+                            {{ form.min_bulk_qty(class="form-control") }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.image.label(class="form-label") }}
+                        {{ form.image(class="form-control") }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_active(class="form-check-input", checked=True) }}
+                            {{ form.is_active.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">Add Product</button>
+                    <a href="{{ url_for('farmer.products') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

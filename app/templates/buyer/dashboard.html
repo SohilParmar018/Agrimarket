@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Buyer Dashboard - AgriMarket{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Buyer Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>Welcome, {{ current_user.name }}!</h5>
+                <p>Browse fresh products from local farmers</p>
+                <a href="{{ url_for('buyer.products') }}" class="btn btn-success">Browse Products</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Orders</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_orders %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Farmer</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in recent_orders %}
+                        <tr>
+                            <td><a href="{{ url_for('orders.detail', id=order.id) }}">#{{ order.id }}</a></td>
+                            <td>{{ order.farmer.name }}</td>
+                            <td>{{ order.final_amount|currency }}</td>
+                            <td><span class="badge bg-{{ order.status|status_badge }}">{{ order.get_status_display() }}</span></td>
+                            <td>{{ order.created_at|datetime }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-muted">No orders yet</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

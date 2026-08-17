@@ -1,0 +1,39 @@
+========================================
+PYTHON 3.13 COMPATIBILITY FIX
+========================================
+
+You're using Python 3.13, which is too new!
+SQLAlchemy 2.0.23 doesn't support Python 3.13 yet.
+
+SOLUTION 1: Downgrade to Python 3.11 or 3.12
+---------------------------------------------
+1. Download Python 3.11: https://www.python.org/downloads/
+2. Install it
+3. Run: py -3.11 -m venv venv
+4. Run: .\INSTALL_NOW.bat
+
+SOLUTION 2: Use Compatible Versions
+------------------------------------
+Run this in PowerShell:
+
+    .\FIX_NOW.bat
+
+This installs Python 3.13 compatible versions.
+
+========================================
+
+QUICK FIX (Copy and paste):
+---------------------------
+
+venv\Scripts\activate
+pip install Flask==3.0.0
+pip install Flask-SQLAlchemy==3.1.1
+pip install Flask-Login==0.6.3
+pip install Flask-WTF==1.2.1
+pip install Flask-Migrate==4.0.5
+pip install python-dotenv==1.0.0
+pip install email-validator==2.1.0
+python init_db.py
+python run.py
+
+========================================
